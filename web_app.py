@@ -52,11 +52,11 @@ def generate_assignments(names, exclusions):
 
   return assignments
 
-@app.route('/')
+@app.route('/secret-santa/')
 def index():
   return render_template('index.html')
 
-@app.route('/output', methods=['POST'])
+@app.route('/secret-santa/output', methods=['POST'])
 def secret_santa():
   if request.method == 'POST':
     # Get the input from the form
