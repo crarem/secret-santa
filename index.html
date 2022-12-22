@@ -1,16 +1,94 @@
 <html>
   <head>
-    <title>Secret Santa</title>
+    <title>Free Christmas Secret Santa Generator</title>
+    <meta name="description" content="Generate secret santa assignments for your friends and family this Christmas!">
+    <style>
+      /* Add a red and green color scheme */
+      body {
+        color: green;
+        font-family: 'Poppins', sans-serif;
+      }
+      h1 {
+        color: #B22222;
+        font-family: 'Poppins', sans-serif;
+        font-weight: bold;
+        text-align: center;
+      }
+      h2 {
+        color: #B22222;
+        font-family: 'Poppins', sans-serif;
+        font-weight: bold;
+        text-align: center;
+      }
+      /* Add a Christmas-themed background color */
+      body {
+        background-color: #E7DCCD;
+      }
+      /* Add some padding to the form elements */
+      textarea, input[type='submit'] {
+        padding: 10px;
+      }
+      /* Add some margin to the form element */
+      form {
+        margin: 20px;
+      }
+      /* Style the error message */
+      .error {
+        color: orange;
+        font-weight: bold;
+      }
+      /* Center the content on the page */
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Secret Santa</h1>
-    <p>Generate secret santa assignments for your friends and family.</p>
-  <form method="GET" action="/">
-    <label>Names:</label>
-    <input type="text" name="names" placeholder="Enter names separated by commas">
-    <label>Exclusions:</label>
-    <input type="text" name="exclusions" placeholder="Enter exclusions in the form A,B;C,D;...">
-    <button type="submit">Generate assignments</button>
-  </form>x
+    <div class="container">
+      <h1>Secret Santa Match-Maker</h1>
+      {% if error %}
+        <p class="error">Error: {{ error }}</p>
+      {% endif %}
+      <form action="/output" method="post">
+        <label for="participants">Participants (one per line):</label><br>
+        <textarea name="participants" rows="8" cols="30">{{ participants }}</textarea><br><br>
+        <label for="exclusions">Exclusions (two per line):</label><br>
+        <textarea name="exclusions" rows="5" cols="30">{{ exclusions }}</textarea><br><br>
+        <input type="submit" value="Generate assignments >"style="color: white; background-color: #5DADE2;">
+      </form>
+     {% if assignments %}
+  <h2>Secret &#x1F385; Assignments:</h2>
+  <div id="assignments">
+    <ul>
+    {% for assignment in assignments %}
+      <li>{{ assignment }}</li><br>
+    {% endfor %}
+  </ul>
+  </div>
+
+          <!-- Add a "Copy to Clipboard" button -->
+  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+  
+  <script>
+    function copyToClipboard() {
+      // Get the assignments text
+      var assignments = document.getElementById('assignments').innerText;
+      
+      // Write the assignments text to the clipboard
+      navigator.clipboard.writeText(assignments).then(function() {
+        // Display a success message
+        //alert('Assignments copied to clipboard');
+      }, function(err) {
+        // Display an error message
+        alert('Error copying assignments to clipboard: ' + err);
+      });
+    }
+  </script>
+
+      {% endif %}
+    </div>
   </body>
 </html>
+
