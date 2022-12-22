@@ -52,11 +52,11 @@ def generate_assignments(names, exclusions):
 
   return assignments
 
-@app.route('/secret-santa/')
+@app.route('/')
 def index():
   return render_template('index.html')
 
-@app.route('/secret-santa/output', methods=['POST'])
+@app.route('/output', methods=['POST'])
 def secret_santa():
   if request.method == 'POST':
     # Get the input from the form
@@ -65,12 +65,15 @@ def secret_santa():
 
     # Convert the input strings to lists of names and exclusions
     names = participants_input.strip().split('\r\n')
+    #handle title case scenarios
+    names = [x.lower() for x in names] 
  
     exclusions = []
-    exclusions = [tuple(t.split(',')) for t in exclusions_input.strip().split('\n')]
+    exclusions = [tuple(t.split(',')) for t in exclusions_input.strip().split('\r\n')]
+    exclusions = [(x.lower(),y.lower()) for x,y in exclusions]
 
-    #print('Names:',names)
-    #print('Exclusions:',exclusions)
+    print('Names:',names)
+    print('Exclusions:',exclusions)
 
     # Generate the secret santa assignments
     try:
@@ -88,6 +91,4 @@ def secret_santa():
     return render_template('index.html', participants='', exclusions='')
 
 if __name__ == '__main__':
-  app.run()
-
-
+  app.run(host='0.0.0.0', port=81)
