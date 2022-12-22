@@ -51,7 +51,7 @@
       {% if error %}
         <p class="error">Error: {{ error }}</p>
       {% endif %}
-      <form action="/output" method="post">
+      <form action="/secret-santa/output" method="post">
         <label for="participants">Participants (one per line):</label><br>
         <textarea name="participants" rows="8" cols="30">{{ participants }}</textarea><br><br>
         <label for="exclusions">Exclusions (two per line):</label><br>
