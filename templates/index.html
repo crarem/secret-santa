@@ -1,12 +1,15 @@
 <html>
   <head>
     <title>Free Christmas Secret Santa Generator</title>
+    <!-- Set the viewport width to the device width -->
+    <meta name="viewport" content="width=device-width">
     <meta name="description" content="Generate secret santa assignments for your friends and family this Christmas!">
     <style>
       /* Add a red and green color scheme */
       body {
         color: green;
         font-family: 'Poppins', sans-serif;
+        background-color: #E7DCCD;
       }
       h1 {
         color: #B22222;
@@ -19,10 +22,6 @@
         font-family: 'Poppins', sans-serif;
         font-weight: bold;
         text-align: center;
-      }
-      /* Add a Christmas-themed background color */
-      body {
-        background-color: #E7DCCD;
       }
       /* Add some padding to the form elements */
       textarea, input[type='submit'] {
@@ -47,11 +46,11 @@
   </head>
   <body>
     <div class="container">
-      <h1>Secret Santa Match-Maker</h1>
+      <h1>Secret Santa Match-Maker 🎁</h1>
       {% if error %}
         <p class="error">Error: {{ error }}</p>
       {% endif %}
-      <form action="/secret-santa/output" method="post">
+      <form action="/output" method="post">
         <label for="participants">Participants (one per line):</label><br>
         <textarea name="participants" rows="8" cols="30">{{ participants }}</textarea><br><br>
         <label for="exclusions">Exclusions (two per line):</label><br>
@@ -69,7 +68,7 @@
   </div>
 
           <!-- Add a "Copy to Clipboard" button -->
-  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+  <button onclick="copyToClipboard()" style="margin-bottom: 20px">Copy to Clipboard</button>
   
   <script>
     function copyToClipboard() {
